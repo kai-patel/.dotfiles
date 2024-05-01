@@ -1,0 +1,43 @@
+[user]
+    email = Kai.Patel@flextrade.com
+    name = Kai Patel
+
+[merge]
+    tool = nvim -d
+    conflictstyle = diff3
+    keepbackup = false
+
+[core]
+    excludesFile = ~/.gitignoreglobal
+    pager = delta
+
+[pull]
+    rebase = true
+
+[push]
+    default = current
+
+[rerere]
+    enabled = true
+
+[diff]
+    algorithm = histogram
+    colorMoved = default
+
+[fetch]
+    prune = true
+
+[maintenance]
+    auto = false
+    strategy = incremental
+
+[delta]
+    navigate = true
+    light = false
+    side-by-side = true
+
+[interactive]
+    diffFilter = delta --color-only
+
+[sequence]
+    editor = nvim

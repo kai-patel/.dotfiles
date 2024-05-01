@@ -1,0 +1,8 @@
+*.swp
+*.swo
+.vim/
+.clangd/
+.cache/
+..bfg-report/
+kai/
+compile_commands.*
