@@ -174,8 +174,6 @@ Plug 'tpope/vim-commentary'
 Plug 'preservim/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'PhilRunninger/nerdtree-visual-selection'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -194,10 +192,13 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'folke/neodev.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+Plug 'p00f/clangd_extensions.nvim'
+Plug 'windwp/nvim-autopairs'
+Plug 'utilyre/sentiment.nvim'
 call plug#end()
-
-" FZF Config
-nnoremap <leader>f :Files<CR>
 
 " NERDTree Config
 " Start NERDTree when Vim starts with a directory argument.
