@@ -14,23 +14,28 @@ lspconfig.lua_ls.setup {
 }
 
 -- Flex C++
--- require('lspconfig.configs').docker_clangd = {
---     default_config = {
---         -- cmd = { "docker", "exec", "lsp", "sh -c 'clangd --compile-commands-dir=./kai'" },
---         cmd = { "./start_lsp.sh" },
---         filetypes = { 'cpp' },
---         root_dir = lspconfig.util.root_pattern("start_lsp.sh"),
---         settings = {},
---     },
--- }
-
-lspconfig.clangd.setup {
-    capabilities = capabilities,
-    on_attach = function(client, bufnr)
-        require("clangd_extensions.inlay_hints").setup_autocmd()
-        require("clangd_extensions.inlay_hints").set_inlay_hints()
-    end
-}
+if not string.find(vim.fn.hostname(), "DESKTOP") then
+    lspconfig.clangd.setup {
+        capabilities = capabilities,
+        cmd = {
+            "./start_lsp.sh",
+        },
+        root_dir = lspconfig.util.root_pattern("start_lsp.sh"),
+        on_attach = function(client, bufnr)
+            require("clangd_extensions.inlay_hints").setup_autocmd()
+            require("clangd_extensions.inlay_hints").set_inlay_hints()
+        end
+    }
+else
+    -- C++
+    lspconfig.clangd.setup {
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+            require("clangd_extensions.inlay_hints").setup_autocmd()
+            require("clangd_extensions.inlay_hints").set_inlay_hints()
+        end
+    }
+end
 
 -- Bash
 lspconfig.bashls.setup {
