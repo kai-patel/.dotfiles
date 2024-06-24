@@ -13,8 +13,9 @@ lspconfig.lua_ls.setup {
     capabilities = capabilities,
 }
 
--- Flex C++
+-- C++
 if not string.find(vim.fn.hostname(), "DESKTOP") then
+    -- Flex C++
     lspconfig.clangd.setup {
         capabilities = capabilities,
         cmd = {
@@ -27,7 +28,7 @@ if not string.find(vim.fn.hostname(), "DESKTOP") then
         end
     }
 else
-    -- C++
+    -- Personal C++
     lspconfig.clangd.setup {
         capabilities = capabilities,
         on_attach = function(client, bufnr)
