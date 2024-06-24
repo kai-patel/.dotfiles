@@ -26,10 +26,6 @@ lspconfig.lua_ls.setup {
 
 lspconfig.clangd.setup {
     capabilities = capabilities,
-    cmd = {
-        "./start_lsp.sh",
-    },
-    root_dir = lspconfig.util.root_pattern("start_lsp.sh"),
     on_attach = function(client, bufnr)
         require("clangd_extensions.inlay_hints").setup_autocmd()
         require("clangd_extensions.inlay_hints").set_inlay_hints()
@@ -78,6 +74,35 @@ lspconfig.pylsp.setup {
             }
         }
     }
+}
+
+-- Golang
+lspconfig.gopls.setup({
+    capabilities = capabilities,
+    settings = {
+        gopls = {
+            analyses = {
+                unusedparams = true,
+            },
+            staticcheck = true,
+            gofumpt = true,
+        },
+    },
+})
+
+-- Zig
+lspconfig.zls.setup({
+    capabilities = capabilities
+})
+
+-- Rust
+lspconfig.rust_analyzer.setup({
+    capabilities = capabilities
+})
+
+-- Latex
+lspconfig.texlab.setup {
+    capabilities = capabilities
 }
 
 -- nvim-cmp
