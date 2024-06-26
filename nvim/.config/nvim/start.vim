@@ -198,6 +198,7 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCM
 Plug 'p00f/clangd_extensions.nvim'
 Plug 'windwp/nvim-autopairs'
 Plug 'utilyre/sentiment.nvim'
+Plug 'vlime/vlime', {'rtp': 'vim/'}
 call plug#end()
 
 " NERDTree Config
@@ -220,3 +221,6 @@ autocmd FileType cpp setlocal commentstring=//\ %s
 " Yank from WSL to Windows
 nnoremap <silent> <leader>w :w !clip.exe<CR>
 vnoremap <silent> <leader>w :'<,'> w !clip.exe<CR>
+
+" vlime
+let g:vlime_compiler_policy = {"DEBUG": 3}

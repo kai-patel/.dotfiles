@@ -13,28 +13,30 @@ lspconfig.lua_ls.setup {
     capabilities = capabilities,
 }
 
--- Flex C++
--- require('lspconfig.configs').docker_clangd = {
---     default_config = {
---         -- cmd = { "docker", "exec", "lsp", "sh -c 'clangd --compile-commands-dir=./kai'" },
---         cmd = { "./start_lsp.sh" },
---         filetypes = { 'cpp' },
---         root_dir = lspconfig.util.root_pattern("start_lsp.sh"),
---         settings = {},
---     },
--- }
-
-lspconfig.clangd.setup {
-    capabilities = capabilities,
-    cmd = {
-        "./start_lsp.sh",
-    },
-    root_dir = lspconfig.util.root_pattern("start_lsp.sh"),
-    on_attach = function(client, bufnr)
-        require("clangd_extensions.inlay_hints").setup_autocmd()
-        require("clangd_extensions.inlay_hints").set_inlay_hints()
-    end
-}
+-- C++
+if not string.find(vim.fn.hostname(), "DESKTOP") then
+    -- Flex C++
+    lspconfig.clangd.setup {
+        capabilities = capabilities,
+        cmd = {
+            "./start_lsp.sh",
+        },
+        root_dir = lspconfig.util.root_pattern("start_lsp.sh"),
+        on_attach = function(client, bufnr)
+            require("clangd_extensions.inlay_hints").setup_autocmd()
+            require("clangd_extensions.inlay_hints").set_inlay_hints()
+        end
+    }
+else
+    -- Personal C++
+    lspconfig.clangd.setup {
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+            require("clangd_extensions.inlay_hints").setup_autocmd()
+            require("clangd_extensions.inlay_hints").set_inlay_hints()
+        end
+    }
+end
 
 -- Bash
 lspconfig.bashls.setup {
@@ -78,6 +80,35 @@ lspconfig.pylsp.setup {
             }
         }
     }
+}
+
+-- Golang
+lspconfig.gopls.setup({
+    capabilities = capabilities,
+    settings = {
+        gopls = {
+            analyses = {
+                unusedparams = true,
+            },
+            staticcheck = true,
+            gofumpt = true,
+        },
+    },
+})
+
+-- Zig
+lspconfig.zls.setup({
+    capabilities = capabilities
+})
+
+-- Rust
+lspconfig.rust_analyzer.setup({
+    capabilities = capabilities
+})
+
+-- Latex
+lspconfig.texlab.setup {
+    capabilities = capabilities
 }
 
 -- nvim-cmp
