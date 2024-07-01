@@ -59,27 +59,10 @@ lspconfig.neocmake.setup {
 }
 
 -- Python
-lspconfig.pylsp.setup {
+
+-- Ruff
+lspconfig.ruff.setup {
     capabilities = capabilities,
-    settings = {
-        pylsp = {
-            configurationSources = { "flake8" },
-            plugins = {
-                flake8 = {
-                    enabled = true
-                },
-                pycodestyle = {
-                    enabled = false
-                },
-                mccabe = {
-                    enabled = false
-                },
-                pyflakes = {
-                    enabled = false
-                },
-            }
-        }
-    }
 }
 
 -- Golang
