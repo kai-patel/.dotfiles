@@ -74,10 +74,10 @@ set foldmethod=indent
 set foldlevel=99
 
 " Moving between split windows
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-l> <C-W>l
+nnoremap <C-h> <C-W>h
 
 " Toggle folds
 nnoremap <space> za
@@ -224,3 +224,4 @@ vnoremap <silent> <leader>w :'<,'> w !clip.exe<CR>
 
 " vlime
 let g:vlime_compiler_policy = {"DEBUG": 3}
+let g:vlime_enable_autodoc = v:true
