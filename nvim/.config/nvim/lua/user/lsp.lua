@@ -59,24 +59,22 @@ lspconfig.neocmake.setup {
 }
 
 -- Python
-lspconfig.pylsp.setup {
+
+-- Ruff
+lspconfig.ruff.setup {
+    capabilities = capabilities,
+}
+
+-- Pyright
+lspconfig.pyright.setup {
     capabilities = capabilities,
     settings = {
-        pylsp = {
-            configurationSources = { "flake8" },
-            plugins = {
-                flake8 = {
-                    enabled = true
-                },
-                pycodestyle = {
-                    enabled = false
-                },
-                mccabe = {
-                    enabled = false
-                },
-                pyflakes = {
-                    enabled = false
-                },
+        pyright = {
+            disableOrganizeImports = true,
+        },
+        python = {
+            analysis = {
+                ignore = { '*' },
             }
         }
     }
@@ -181,7 +179,6 @@ cmp.setup.cmdline(':', {
 local trouble = require('trouble')
 trouble.setup({
     -- settings without a patched font or icons
-    icons = false,
     fold_open = "v",      -- icon used for open folds
     fold_closed = ">",    -- icon used for closed folds
     indent_lines = false, -- add an indent guide below the fold icons
@@ -223,7 +220,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('v', '<S-A-F>', function()
             vim.lsp.buf.format { async = true }
         end, opts)
-        vim.keymap.set("n", "<leader>d", function() require("trouble").toggle("workspace_diagnostics") end)
+        vim.keymap.set("n", "<leader>d", function() require("trouble").toggle("diagnostics") end)
         vim.keymap.set('n', '<leader>s', ":ClangdSwitchSourceHeader<cr>")
 
         -- Inlay hints (if supported)

@@ -3,6 +3,7 @@
     name = Kai Patel
 
 [merge]
+    # FIXME
     tool = nvim -d
     conflictstyle = diff3
     keepbackup = false
@@ -23,6 +24,16 @@
 [diff]
     algorithm = histogram
     colorMoved = default
+    tool = difftastic
+
+[difftool]
+    prompt = false
+
+[difftool "difftastic"]
+    cmd = difft "$LOCAL" "$REMOTE"
+
+[pager]
+    difftool = true
 
 [fetch]
     prune = true
@@ -41,3 +52,7 @@
 
 [sequence]
     editor = nvim
+
+[alias]
+    dft = difftool
+    dlog = "-c diff.external=difft log -p --ext-diff"
