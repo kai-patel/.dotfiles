@@ -1,10 +1,17 @@
 -- LSP
 
 -- Setup neodev before lspconfig
-local neodev = require("neodev").setup({})
+local _ = require("neodev").setup({})
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lspconfig = require('lspconfig')
+
+require("clangd_extensions").setup({
+    inlay_hints = {
+        inline = vim.fn.has("nvim-0.10") == 1,
+    }
+})
+
 
 -- Servers
 
@@ -23,8 +30,8 @@ if not string.find(vim.fn.hostname(), "DESKTOP") then
         },
         root_dir = lspconfig.util.root_pattern("start_lsp.sh"),
         on_attach = function(client, bufnr)
-            require("clangd_extensions.inlay_hints").setup_autocmd()
-            require("clangd_extensions.inlay_hints").set_inlay_hints()
+            -- require("clangd_extensions.inlay_hints").setup_autocmd()
+            -- require("clangd_extensions.inlay_hints").set_inlay_hints()
         end
     }
 else
@@ -32,8 +39,8 @@ else
     lspconfig.clangd.setup {
         capabilities = capabilities,
         on_attach = function(client, bufnr)
-            require("clangd_extensions.inlay_hints").setup_autocmd()
-            require("clangd_extensions.inlay_hints").set_inlay_hints()
+            -- require("clangd_extensions.inlay_hints").setup_autocmd()
+            -- require("clangd_extensions.inlay_hints").set_inlay_hints()
         end
     }
 end
@@ -101,7 +108,14 @@ lspconfig.zls.setup({
 
 -- Rust
 lspconfig.rust_analyzer.setup({
-    capabilities = capabilities
+    capabilities = capabilities,
+    settings = {
+        ['rust-analyzer'] = {
+            cargo = {
+                allTargets = false,
+            }
+        }
+    }
 })
 
 -- Latex
