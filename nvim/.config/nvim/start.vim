@@ -200,6 +200,10 @@ Plug 'p00f/clangd_extensions.nvim'
 Plug 'windwp/nvim-autopairs'
 Plug 'utilyre/sentiment.nvim'
 Plug 'vlime/vlime', {'rtp': 'vim/'}
+Plug 'junegunn/vim-easy-align'
+Plug 'lark-parser/vim-lark-syntax'
+Plug 'pprovost/vim-ps1'
+Plug 'vimwiki/vimwiki'
 call plug#end()
 
 " NERDTree Config
@@ -207,6 +211,7 @@ call plug#end()
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
     \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | wincmd p | endif
+let NERDTreeShowHidden=1
 
 " let NERDTreeIgnore=[]
 
@@ -226,3 +231,6 @@ vnoremap <silent> <leader>w :'<,'> w !clip.exe<CR>
 " vlime
 let g:vlime_compiler_policy = {"DEBUG": 3}
 let g:vlime_enable_autodoc = v:true
+
+" vim-easy-align
+xmap ga <Plug>(EasyAlign)

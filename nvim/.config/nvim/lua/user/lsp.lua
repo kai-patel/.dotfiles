@@ -20,8 +20,13 @@ lspconfig.lua_ls.setup {
     capabilities = capabilities,
 }
 
+function file_exists(name)
+    local f = io.open(name, "r")
+    return f ~= nil and io.close(f)
+end
+
 -- C++
-if not string.find(vim.fn.hostname(), "DESKTOP") then
+if file_exists("start_lsp.sh") then
     -- Flex C++
     lspconfig.clangd.setup {
         capabilities = capabilities,
@@ -29,6 +34,7 @@ if not string.find(vim.fn.hostname(), "DESKTOP") then
             "./start_lsp.sh",
         },
         root_dir = lspconfig.util.root_pattern("start_lsp.sh"),
+        filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
         on_attach = function(client, bufnr)
             -- require("clangd_extensions.inlay_hints").setup_autocmd()
             -- require("clangd_extensions.inlay_hints").set_inlay_hints()
@@ -44,6 +50,11 @@ else
         end
     }
 end
+
+-- Protobuf
+lspconfig.protols.setup {
+    capabilities = capabilities
+}
 
 -- Bash
 lspconfig.bashls.setup {
