@@ -89,13 +89,13 @@ set omnifunc=syntaxcomplete#Complete
 syntax enable
 
 " Sort completions by descending length
-set completeopt+=longest
+" set completeopt+=longest
 
 " Always show the autocompelete window when completing
-set completeopt+=menuone
+" set completeopt+=menuone
 
 " Enable preview info for autocompletion
-set completeopt+=preview
+" set completeopt+=preview
 
 nnoremap j gj
 nnoremap gj j
@@ -172,22 +172,8 @@ Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
-Plug 'preservim/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'PhilRunninger/nerdtree-visual-selection'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/cmp-nvim-lsp-document-symbol'
-Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-Plug 'PhilRunninger/cmp-rpncalc'
-Plug 'folke/trouble.nvim'
 Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
@@ -204,19 +190,10 @@ Plug 'junegunn/vim-easy-align'
 Plug 'lark-parser/vim-lark-syntax'
 Plug 'pprovost/vim-ps1'
 Plug 'vimwiki/vimwiki'
+Plug 'stevearc/oil.nvim'
+Plug 'Saghen/blink.cmp', { 'tag': 'v0.7.6' }
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 call plug#end()
-
-" NERDTree Config
-" Start NERDTree when Vim starts with a directory argument.
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
-    \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | wincmd p | endif
-let NERDTreeShowHidden=1
-
-" let NERDTreeIgnore=[]
-
-" Toggle NERDTree
-nnoremap <silent> <C-_> :NERDTreeToggle<CR>
 
 " Editorconfig Config
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']

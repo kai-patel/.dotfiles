@@ -1,222 +1,142 @@
 -- LSP
 
 -- Setup neodev before lspconfig
-local neodev = require("neodev").setup({})
+local _ = require("neodev").setup({})
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lspconfig = require('lspconfig')
+
+require("clangd_extensions").setup({
+    inlay_hints = {
+        inline = true,
+    }
+})
+
 
 -- Servers
 
--- Lua
-lspconfig.lua_ls.setup {
-    capabilities = capabilities,
-}
-
-function file_exists(name)
+local function file_exists(name)
     local f = io.open(name, "r")
     return f ~= nil and io.close(f)
 end
 
--- C++
+local clangd_opts = {}
 if file_exists("start_lsp.sh") then
-    -- Flex C++
-    lspconfig.clangd.setup {
-        capabilities = capabilities,
-        cmd = {
-            "./start_lsp.sh",
-        },
-        root_dir = lspconfig.util.root_pattern("start_lsp.sh"),
+    clangd_opts = {
+        cmd = "./start_lsp.sh",
         filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
-        on_attach = function(client, bufnr)
-            require("clangd_extensions.inlay_hints").setup_autocmd()
-            require("clangd_extensions.inlay_hints").set_inlay_hints()
+        on_attach = function(_, _)
+            -- require("clangd_extensions.inlay_hints").setup_autocmd()
+            -- require("clangd_extensions.inlay_hints").set_inlay_hints()
         end
     }
 else
-    -- Personal C++
-    lspconfig.clangd.setup {
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
+    clangd_opts = {
+        filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+        on_attach = function(_, _)
             -- require("clangd_extensions.inlay_hints").setup_autocmd()
             -- require("clangd_extensions.inlay_hints").set_inlay_hints()
         end
     }
 end
 
--- Protobuf
-lspconfig.protols.setup {
-    capabilities = capabilities
-}
-
--- Bash
-lspconfig.bashls.setup {
-    capabilities = capabilities
-}
-
--- Markdown
-lspconfig.marksman.setup {
-    capabilities = capabilities
-}
-
--- YAML
-lspconfig.yamlls.setup {
-    capabilities = capabilities
-}
-
--- CMake
-lspconfig.neocmake.setup {
-    capabilities = capabilities
-}
-
--- Python
-
--- Ruff
-lspconfig.ruff.setup {
-    capabilities = capabilities,
-}
-
--- Pyright
-lspconfig.pyright.setup {
-    capabilities = capabilities,
-    settings = {
+local lsp_opts = {
+    servers = {
+        lua_ls = {},
+        clangd = clangd_opts,
+        protols = {},
+        bashls = {},
+        marksman = {},
+        yamlls = {},
+        neocmake = {},
+        ruff = {},
         pyright = {
-            disableOrganizeImports = true,
-        },
-        python = {
-            analysis = {
-                ignore = { '*' },
+            settings = {
+                pyright = {
+                    disableOrganizeImports = true,
+                },
+                python = {
+                    analysis = {
+                        ignore = { '*' },
+                    }
+                }
             }
-        }
+
+        },
+        gopls = {
+            settings = {
+                gopls = {
+                    analyses = {
+                        unusedparams = true,
+                    },
+                    staticcheck = true,
+                    gofumpt = true,
+                },
+            },
+
+        },
+        zls = {},
+        rust_analyzer = { settings = { ['rust-analyzer'] = { cargo = { allTargets = false } } } },
+        texlab = {},
+        biome = {},
+        ts_ls = {},
+        tailwindcss = {},
     }
 }
 
--- Golang
-lspconfig.gopls.setup({
-    capabilities = capabilities,
-    settings = {
-        gopls = {
-            analyses = {
-                unusedparams = true,
+-- blink.cmp
+require('blink.cmp').setup({
+    -- 'default' for mappings similar to built-in completion
+    -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
+    -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
+    -- see the "default configuration" section below for full documentation on how to define
+    -- your own keymap.
+    keymap = { preset = 'enter' },
+    appearance = {
+        -- Sets the fallback highlight groups to nvim-cmp's highlight groups
+        -- Useful for when your theme doesn't support blink.cmp
+        -- will be removed in a future release
+        use_nvim_cmp_as_default = true,
+        -- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+        -- Adjusts spacing to ensure icons are aligned
+        nerd_font_variant = "mono",
+    },
+
+    completion = {
+        menu = {
+            border = 'rounded',
+            treesitter = true,
+            draw = {
+                columns = { { 'label', 'label_description', gap = 1 } }
+            }
+        },
+        documentation = {
+            auto_show = true,
+            window = {
+                border = 'rounded',
             },
-            staticcheck = true,
-            gofumpt = true,
         },
     },
-})
 
--- Zig
-lspconfig.zls.setup({
-    capabilities = capabilities
-})
-
--- Rust
-lspconfig.rust_analyzer.setup({
-    capabilities = capabilities
-})
-
--- Latex
-lspconfig.texlab.setup {
-    capabilities = capabilities
-}
-
--- Biome (TS/JS Formatting and Linting)
-lspconfig.biome.setup {
-    capabilities = capabilities
-}
-
--- TS
-lspconfig.ts_ls.setup {
-    capabilities = capabilities
-}
-
--- Tailwind
-lspconfig.tailwindcss.setup {
-    capabilities = capabilities
-}
-
--- nvim-cmp
-local cmp = require('cmp')
-
-cmp.setup({
-    snippet = {
-        -- REQUIRED - you must specify a snippet engine
-        expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-            -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-            -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-            -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-        end,
+    -- default list of enabled providers defined so that you can extend it
+    -- elsewhere in your config, without redefining it, via `opts_extend`
+    sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer' },
+        -- optionally disable cmdline completions
+        -- cmdline = {},
     },
-    window = {
-        -- completion = cmp.config.window.bordered(),
-        -- documentation = cmp.config.window.bordered(),
-    },
-    mapping = cmp.mapping.preset.insert({
-        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    }),
-    sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'vsnip' }, -- For vsnip users.
-        -- { name = 'luasnip' }, -- For luasnip users.
-        -- { name = 'ultisnips' }, -- For ultisnips users.
-        -- { name = 'snippy' }, -- For snippy users.
-        { name = 'nvim_lsp_signature_help' },
-        { name = 'rpncalc' },
-    }, {
-        { name = 'buffer' },
-    })
-})
 
--- Set configuration for specific filetype.
-cmp.setup.filetype('gitcommit', {
-    sources = cmp.config.sources({
-        { name = 'git' }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
-    }, {
-        { name = 'buffer' },
-    })
-})
+    -- experimental signature help support
+    signature = { enabled = true }
+}
+)
 
--- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline({ '/', '?' }, {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-        { name = 'nvim_lsp_document_symbol' },
-    }, {
-        { name = 'buffer' }
-    })
-})
 
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-        { name = 'path' }
-    }, {
-        { name = 'cmdline' }
-    })
-})
-
--- trouble.nvim
-local trouble = require('trouble')
-trouble.setup({
-    -- settings without a patched font or icons
-    fold_open = "v",      -- icon used for open folds
-    fold_closed = ">",    -- icon used for closed folds
-    indent_lines = false, -- add an indent guide below the fold icons
-    signs = {
-        -- icons / text used for a diagnostic
-        error = "error",
-        warning = "warn",
-        hint = "hint",
-        information = "info"
-    },
-    use_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
-})
+for server, config in pairs(lsp_opts.servers) do
+    -- passing config.capabilities to blink.cmp merges with the capabilities in your
+    -- `opts[server].capabilities, if you've defined it
+    config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+    lspconfig[server].setup(config)
+end
 
 -- Globals
 
@@ -234,32 +154,23 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', 'g]', vim.diagnostic.goto_next)
         vim.keymap.set('n', '<leader>g', vim.lsp.buf.definition, opts)
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-        vim.keymap.set('n', '<leader>i', vim.lsp.buf.implementation, opts)
-        -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-        vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, opts)
-        vim.keymap.set({ 'n', 'v' }, '<leader>a', vim.lsp.buf.code_action, opts)
-        vim.keymap.set('n', '<leader>I', vim.lsp.buf.references, opts)
-        vim.keymap.set('n', '<leader>c', vim.lsp.buf.incoming_calls, opts)
+        vim.keymap.set('n', 'gri', vim.lsp.buf.implementation, opts)
+        vim.keymap.set('i', '<C-S>', vim.lsp.buf.signature_help, opts)
+        vim.keymap.set('n', 'grn', vim.lsp.buf.rename, opts)
+        vim.keymap.set({ 'n', 'v' }, 'gra', vim.lsp.buf.code_action, opts)
+        vim.keymap.set('n', 'grr', vim.lsp.buf.references, opts)
+        vim.keymap.set('n', 'grI', vim.lsp.buf.incoming_calls, opts)
         vim.keymap.set('n', '<S-A-F>', function()
             vim.lsp.buf.format { async = true }
         end, opts)
-        vim.keymap.set('v', '<S-A-F>', function()
-            vim.lsp.buf.format { async = true }
-        end, opts)
-        vim.keymap.set("n", "<leader>d", function() require("trouble").toggle("diagnostics") end)
+        vim.keymap.set('n', "gO", vim.lsp.buf.document_symbol, opts)
         vim.keymap.set('n', '<leader>s', ":ClangdSwitchSourceHeader<cr>")
-
-        -- Inlay hints (if supported)
-        -- local client = vim.lsp.get_client_by_id(args.data.client_id)
-        -- if client.server_capabilities.inlayHintProvider then
-        --     vim.lsp.inlay_hint.enable(args.buf, true)
-        -- end
     end,
 })
 
 require 'treesitter-context'.setup {
     enable = true,            -- Enable this plugin (Can be enabled/disabled later via commands)
-    max_lines = 0,            -- How many lines the window should span. Values <= 0 mean no limit.
+    max_lines = 1,            -- How many lines the window should span. Values <= 0 mean no limit.
     min_window_height = 0,    -- Minimum editor window height to enable context. Values <= 0 mean no limit.
     line_numbers = true,
     multiline_threshold = 20, -- Maximum number of lines to show for a single context
