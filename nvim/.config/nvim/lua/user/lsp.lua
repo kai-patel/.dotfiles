@@ -120,6 +120,21 @@ lspconfig.texlab.setup {
     capabilities = capabilities
 }
 
+-- Biome (TS/JS Formatting and Linting)
+lspconfig.biome.setup {
+    capabilities = capabilities
+}
+
+-- TS
+lspconfig.ts_ls.setup {
+    capabilities = capabilities
+}
+
+-- Tailwind
+lspconfig.tailwindcss.setup {
+    capabilities = capabilities
+}
+
 -- nvim-cmp
 local cmp = require('cmp')
 
