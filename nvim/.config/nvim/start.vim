@@ -54,6 +54,7 @@ set incsearch
 set nohlsearch
 
 " Smart casing
+set ignorecase
 set smartcase
 
 " Tabs over spaces
