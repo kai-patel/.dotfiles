@@ -22,7 +22,7 @@ end
 local clangd_opts = {}
 if file_exists("start_lsp.sh") then
     clangd_opts = {
-        cmd = "./start_lsp.sh",
+        cmd = { "./start_lsp.sh" },
         filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
         on_attach = function(_, _)
             -- require("clangd_extensions.inlay_hints").setup_autocmd()

@@ -53,6 +53,9 @@ set showmatch
 set incsearch
 set nohlsearch
 
+" Smart casing
+set smartcase
+
 " Tabs over spaces
 set expandtab
 set tabstop=4
