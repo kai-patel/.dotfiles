@@ -182,7 +182,6 @@ Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'lewis6991/gitsigns.nvim'
-Plug 'folke/neodev.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
@@ -197,6 +196,12 @@ Plug 'vimwiki/vimwiki'
 Plug 'stevearc/oil.nvim'
 Plug 'Saghen/blink.cmp', { 'tag': 'v0.7.6' }
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+Plug 'folke/lazydev.nvim'
+Plug 'mfussenegger/nvim-dap'
+Plug 'nvim-neotest/nvim-nio'
+Plug 'rcarriga/nvim-dap-ui'
+Plug 'theHamsta/nvim-dap-virtual-text'
+Plug 'mfussenegger/nvim-dap-python'
 call plug#end()
 
 " Editorconfig Config

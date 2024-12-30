@@ -1,7 +1,7 @@
 -- LSP
 
 -- Setup neodev before lspconfig
-local _ = require("neodev").setup({})
+local _ = require("lazydev").setup {}
 
 local lspconfig = require('lspconfig')
 
