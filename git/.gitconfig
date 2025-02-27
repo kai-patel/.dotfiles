@@ -1,16 +1,27 @@
+[column]
+    ui = auto
+
+[branch]
+    sort = -committerdate
+
+[commit]
+    verbose = true
+
+[tag]
+    sort = version:refname
+
 [user]
     email = Kai.Patel@flextrade.com
     name = Kai Patel
 
 [merge]
-    # FIXME
-    tool = nvim -d
-    conflictstyle = diff3
-    keepbackup = false
+    tool = nvimdiff
+    conflictstyle = zdiff3
+    keepBackup = false
+    prompt = false
 
 [core]
     excludesFile = ~/.gitignoreglobal
-    pager = delta
 
 [pull]
     rebase = true
@@ -23,36 +34,34 @@
 
 [diff]
     algorithm = histogram
-    colorMoved = default
-    tool = difftastic
+    colorMoved = plain
+    mnemonicPrefix = true
+    renames = true
+    external = difft
 
 [difftool]
     prompt = false
-
-[difftool "difftastic"]
-    cmd = difft "$LOCAL" "$REMOTE"
 
 [pager]
     difftool = true
 
 [fetch]
     prune = true
+    pruneTags = true
+    all = true
 
 [maintenance]
     auto = false
     strategy = incremental
-
-[delta]
-    navigate = true
-    light = false
-    side-by-side = true
-
-[interactive]
-    diffFilter = delta --color-only
+	repo = /home/kpatel/projects/flexcore
 
 [sequence]
     editor = nvim
 
 [alias]
-    dft = difftool
     dlog = "-c diff.external=difft log -p --ext-diff"
+    dshow = "-c diff.external=difft show --ext-diff"
+    fpush = "push --force-with-lease"
+
+[mergetool "nvimdiff"]
+    layout = "LOCAL,BASE,REMOTE / MERGED"

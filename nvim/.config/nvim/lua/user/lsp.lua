@@ -80,6 +80,9 @@ local lsp_opts = {
         biome = {},
         ts_ls = {},
         tailwindcss = {},
+        powershell_es = {
+            bundle_path = "/mnt/c/Users/kpatel/Desktop/PowerShellEditorServices"
+        }
     }
 }
 
