@@ -194,7 +194,7 @@ Plug 'lark-parser/vim-lark-syntax'
 Plug 'pprovost/vim-ps1'
 Plug 'vimwiki/vimwiki'
 Plug 'stevearc/oil.nvim'
-Plug 'Saghen/blink.cmp', { 'tag': 'v0.7.6' }
+Plug 'Saghen/blink.cmp', { 'tag': 'v1.3.1' }
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'folke/lazydev.nvim'
 Plug 'mfussenegger/nvim-dap'
@@ -202,6 +202,7 @@ Plug 'nvim-neotest/nvim-nio'
 Plug 'rcarriga/nvim-dap-ui'
 Plug 'theHamsta/nvim-dap-virtual-text'
 Plug 'mfussenegger/nvim-dap-python'
+Plug 'github/copilot.vim'
 call plug#end()
 
 " Editorconfig Config
@@ -220,3 +221,5 @@ let g:vlime_enable_autodoc = v:true
 
 " vim-easy-align
 xmap ga <Plug>(EasyAlign)
+
+let g:copilot_node_command = 'node'

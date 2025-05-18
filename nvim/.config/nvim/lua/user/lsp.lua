@@ -22,7 +22,7 @@ end
 local clangd_opts = {}
 if file_exists("start_lsp.sh") then
     clangd_opts = {
-        cmd = { "./start_lsp.sh" },
+        cmd = { vim.loop.cwd() .. "/start_lsp.sh" },
         filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
         on_attach = function(_, _)
             -- require("clangd_extensions.inlay_hints").setup_autocmd()
@@ -77,7 +77,7 @@ local lsp_opts = {
         zls = {},
         rust_analyzer = { settings = { ['rust-analyzer'] = { cargo = { allTargets = false } } } },
         texlab = {},
-        biome = {},
+        biome = { cmd = {"bunx", "biome", "lsp-proxy"} },
         ts_ls = {},
         tailwindcss = {},
         powershell_es = {
@@ -95,10 +95,6 @@ require('blink.cmp').setup({
     -- your own keymap.
     keymap = { preset = 'enter' },
     appearance = {
-        -- Sets the fallback highlight groups to nvim-cmp's highlight groups
-        -- Useful for when your theme doesn't support blink.cmp
-        -- will be removed in a future release
-        use_nvim_cmp_as_default = true,
         -- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
         -- Adjusts spacing to ensure icons are aligned
         nerd_font_variant = "mono",
@@ -107,7 +103,6 @@ require('blink.cmp').setup({
     completion = {
         menu = {
             border = 'rounded',
-            treesitter = true,
             draw = {
                 columns = { { 'label', 'label_description', gap = 1 } }
             }
