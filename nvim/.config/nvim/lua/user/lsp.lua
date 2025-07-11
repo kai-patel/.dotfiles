@@ -82,7 +82,8 @@ local lsp_opts = {
         tailwindcss = {},
         powershell_es = {
             bundle_path = "/mnt/c/Users/kpatel/Desktop/PowerShellEditorServices"
-        }
+        },
+        dotls = { cmd = {"bunx", "dot-language-server", "--stdio"} }
     }
 }
 
