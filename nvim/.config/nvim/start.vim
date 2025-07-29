@@ -101,6 +101,8 @@ syntax enable
 " Enable preview info for autocompletion
 " set completeopt+=preview
 
+set completeopt+=popup,noinsert,noselect
+
 nnoremap j gj
 nnoremap gj j
 
@@ -203,6 +205,7 @@ Plug 'rcarriga/nvim-dap-ui'
 Plug 'theHamsta/nvim-dap-virtual-text'
 Plug 'mfussenegger/nvim-dap-python'
 Plug 'github/copilot.vim'
+Plug 'CopilotC-Nvim/CopilotChat.nvim'
 call plug#end()
 
 " Editorconfig Config

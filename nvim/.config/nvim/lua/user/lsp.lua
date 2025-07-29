@@ -77,13 +77,14 @@ local lsp_opts = {
         zls = {},
         rust_analyzer = { settings = { ['rust-analyzer'] = { cargo = { allTargets = false } } } },
         texlab = {},
-        biome = { cmd = {"bunx", "biome", "lsp-proxy"} },
+        biome = { cmd = { "bunx", "@biomejs/biome", "lsp-proxy" } },
         ts_ls = {},
         tailwindcss = {},
         powershell_es = {
             bundle_path = "/mnt/c/Users/kpatel/Desktop/PowerShellEditorServices"
         },
-        dotls = { cmd = {"bunx", "dot-language-server", "--stdio"} }
+        dotls = { cmd = { "bunx", "dot-language-server", "--stdio" } },
+        hls = { filetypes = { 'haskell', 'lhaskell', 'cabal' } }
     }
 }
 
@@ -122,6 +123,11 @@ require('blink.cmp').setup({
         default = { 'lsp', 'path', 'snippets', 'buffer' },
         -- optionally disable cmdline completions
         -- cmdline = {},
+        providers = {
+            path = {
+                enabled = function() return vim.bo.filetype ~= 'copilot-chat' end,
+            }
+        }
     },
 
     -- experimental signature help support
