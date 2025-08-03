@@ -1,8 +1,6 @@
 -- LSP
 -- Servers
 
-require "lazydev"
-
 local function file_exists(name)
     local f = io.open(name, "r")
     return f ~= nil and io.close(f)
