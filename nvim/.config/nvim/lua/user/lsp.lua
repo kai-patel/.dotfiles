@@ -71,7 +71,8 @@ local lsp_opts = {
             bundle_path = "/mnt/c/Users/kpatel/Desktop/PowerShellEditorServices"
         },
         dotls = { cmd = { "bunx", "dot-language-server", "--stdio" } },
-        hls = { filetypes = { 'haskell', 'lhaskell', 'cabal' } }
+        hls = { filetypes = { 'haskell', 'lhaskell', 'cabal' } },
+        tinymist = { settings = { formatterMode = "typstyle", exportPdf = "onType", semanticTokens = true } },
     }
 }
 
