@@ -31,7 +31,7 @@ local lsp_opts = {
         lua_ls = {},
         clangd = clangd_opts,
         protols = {},
-        bashls = {},
+        bashls = { cmd = {"bunx", "bash-language-server", "start" } },
         marksman = {},
         yamlls = {},
         neocmake = {},
@@ -64,8 +64,8 @@ local lsp_opts = {
         zls = {},
         rust_analyzer = { settings = { ['rust-analyzer'] = { cargo = { allTargets = false } } } },
         texlab = {},
-        biome = { cmd = { "bunx", "@biomejs/biome", "lsp-proxy" } },
-        ts_ls = {},
+        biome = { cmd = { "bunx", "@biomejs/biome", "lsp-proxy" }, workspace_required = false },
+        ts_ls = { cmd = { "bunx", "typescript-language-server", "--stdio" } },
         tailwindcss = {},
         powershell_es = {
             bundle_path = "/mnt/c/Users/kpatel/Desktop/PowerShellEditorServices"
