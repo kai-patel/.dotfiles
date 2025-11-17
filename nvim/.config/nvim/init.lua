@@ -24,7 +24,8 @@ vim.opt.backspace = { "indent", "eol", "start" }
 vim.opt.encoding = "utf-8"
 vim.opt.splitbelow = true
 vim.opt.splitright = true
-vim.opt.foldmethod = "indent"
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 99
 vim.keymap.set("n", "<C-j>", "<C-w>j")
 vim.keymap.set("n", "<C-k>", "<C-w>k")

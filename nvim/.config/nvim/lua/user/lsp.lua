@@ -31,7 +31,7 @@ local lsp_opts = {
         lua_ls = {},
         clangd = clangd_opts,
         protols = {},
-        bashls = { cmd = {"bunx", "bash-language-server", "start" } },
+        bashls = { cmd = { "bunx", "bash-language-server", "start" } },
         marksman = {},
         yamlls = {},
         neocmake = {},
@@ -68,11 +68,13 @@ local lsp_opts = {
         ts_ls = { cmd = { "bunx", "typescript-language-server", "--stdio" } },
         tailwindcss = {},
         powershell_es = {
-            bundle_path = "/mnt/c/Users/kpatel/Desktop/PowerShellEditorServices"
+            bundle_path = "C:/Users/kpatel/Documents/PowerShellEditorServices/",
+            shell = "/mnt/c/Users/kpatel/Downloads/PowerShell-7.5.3-win-x64/pwsh.exe",
         },
         dotls = { cmd = { "bunx", "dot-language-server", "--stdio" } },
         hls = { filetypes = { 'haskell', 'lhaskell', 'cabal' } },
         tinymist = { settings = { formatterMode = "typstyle", exportPdf = "onType", semanticTokens = true } },
+        jqls = {},
     }
 }
 
@@ -100,7 +102,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('i', '<C-S>', vim.lsp.buf.signature_help, opts)
         vim.keymap.set('n', 'grI', vim.lsp.buf.incoming_calls, opts)
         vim.keymap.set('n', '<S-A-F>', function()
-            vim.lsp.buf.format { async = true }
+            vim.lsp.buf.format { async = true, filter = function(client) return client.name ~= "ts_ls" end }
         end, opts)
         vim.keymap.set('n', '<leader>s', ":ClangdSwitchSourceHeader<cr>")
     end,

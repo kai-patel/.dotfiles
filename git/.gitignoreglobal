@@ -6,3 +6,5 @@
 ..bfg-report/
 kai/
 compile_commands.*
+.lsp-conan/
+errors.log
