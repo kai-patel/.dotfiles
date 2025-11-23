@@ -15,6 +15,9 @@ return {
                     -- e.g. git_{create, delete, ...}_branch for the git_branches picker
                     ["<C-h>"] = "which_key"
                 }
+            },
+            preview = {
+                treesitter = false,
             }
         },
         pickers = {

@@ -11,7 +11,7 @@
     sort = version:refname
 
 [user]
-    email = Kai.Patel@flextrade.com
+    email = 00kaipatel@gmail.com
     name = Kai Patel
 
 [merge]
@@ -49,11 +49,6 @@
     prune = true
     pruneTags = true
     all = true
-
-[maintenance]
-    auto = false
-    strategy = incremental
-	repo = /home/kpatel/projects/flexcore
 
 [sequence]
     editor = nvim
