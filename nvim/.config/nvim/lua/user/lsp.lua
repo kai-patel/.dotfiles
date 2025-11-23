@@ -30,10 +30,10 @@ local lsp_opts = {
     servers = {
         lua_ls = {},
         clangd = clangd_opts,
-        protols = {},
-        bashls = { cmd = {"bunx", "bash-language-server", "start" } },
+        buf_ls = {},
+        bashls = { cmd = { "bunx", "bash-language-server", "start" } },
         marksman = {},
-        yamlls = {},
+        yamlls = { cmd = { "bunx", "yaml-language-server", "--stdio" } },
         neocmake = {},
         ruff = {},
         pyright = {
@@ -47,7 +47,6 @@ local lsp_opts = {
                     }
                 }
             }
-
         },
         gopls = {
             settings = {
@@ -63,16 +62,18 @@ local lsp_opts = {
         },
         zls = {},
         rust_analyzer = { settings = { ['rust-analyzer'] = { cargo = { allTargets = false } } } },
-        texlab = {},
+        -- texlab = {},
         biome = { cmd = { "bunx", "@biomejs/biome", "lsp-proxy" }, workspace_required = false },
         ts_ls = { cmd = { "bunx", "typescript-language-server", "--stdio" } },
-        tailwindcss = {},
+        tailwindcss = { cmd = { "bunx", "tailwindcss/language-server" } },
         powershell_es = {
-            bundle_path = "/mnt/c/Users/kpatel/Desktop/PowerShellEditorServices"
+            bundle_path = "C:/Users/kpatel/Documents/PowerShellEditorServices/",
+            shell = "/mnt/c/Users/kpatel/Downloads/PowerShell-7.5.3-win-x64/pwsh.exe",
         },
         dotls = { cmd = { "bunx", "dot-language-server", "--stdio" } },
-        hls = { filetypes = { 'haskell', 'lhaskell', 'cabal' } },
+        -- hls = { filetypes = { 'haskell', 'lhaskell', 'cabal' } },
         tinymist = { settings = { formatterMode = "typstyle", exportPdf = "onType", semanticTokens = true } },
+        jqls = {},
     }
 }
 
@@ -97,11 +98,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', 'g[', function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)
         vim.keymap.set('n', 'g]', function() vim.diagnostic.jump({ count = 1, float = true }) end, opts)
         vim.keymap.set('n', '<leader>g', vim.lsp.buf.definition, opts)
-        vim.keymap.set('i', '<C-S>', vim.lsp.buf.signature_help, opts)
         vim.keymap.set('n', 'grI', vim.lsp.buf.incoming_calls, opts)
         vim.keymap.set('n', '<S-A-F>', function()
-            vim.lsp.buf.format { async = true }
+            vim.lsp.buf.format { async = true, filter = function(client) return client.name ~= "ts_ls" end }
         end, opts)
         vim.keymap.set('n', '<leader>s', ":ClangdSwitchSourceHeader<cr>")
     end,
 })
+vim.lsp.inlay_hint.enable(true)

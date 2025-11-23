@@ -24,7 +24,8 @@ vim.opt.backspace = { "indent", "eol", "start" }
 vim.opt.encoding = "utf-8"
 vim.opt.splitbelow = true
 vim.opt.splitright = true
-vim.opt.foldmethod = "indent"
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 99
 vim.keymap.set("n", "<C-j>", "<C-w>j")
 vim.keymap.set("n", "<C-k>", "<C-w>k")
@@ -63,10 +64,10 @@ vim.opt.ttimeout = true
 vim.opt.ttimeoutlen = 50
 vim.keymap.set("n", "<leader>w", ":w !clip.exe<CR>", { silent = true })
 vim.keymap.set("v", "<leader>w", ":'<,'>w !clip.exe<CR>", { silent = true })
+vim.lsp.set_log_level("ERROR")
 
 require("config.lazy")
 require("user.telescope")
 require("user.oil")
 require("user.brackets")
 require("user.lsp")
-
