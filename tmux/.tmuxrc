@@ -1,2 +1,0 @@
-set -g bell-action none
-set -g visual-bell off
