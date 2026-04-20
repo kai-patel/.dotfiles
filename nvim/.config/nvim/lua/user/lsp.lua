@@ -65,7 +65,7 @@ local lsp_opts = {
         -- texlab = {},
         biome = { cmd = { "bunx", "@biomejs/biome", "lsp-proxy" }, workspace_required = false },
         ts_ls = { cmd = { "bunx", "typescript-language-server", "--stdio" } },
-        tailwindcss = { cmd = { "bunx", "tailwindcss/language-server" } },
+        tailwindcss = { cmd = { "bunx", "@tailwindcss/language-server" } },
         powershell_es = {
             bundle_path = "C:/Users/kpatel/Documents/PowerShellEditorServices/",
             shell = "/mnt/c/Users/kpatel/Downloads/PowerShell-7.5.3-win-x64/pwsh.exe",
@@ -74,6 +74,8 @@ local lsp_opts = {
         -- hls = { filetypes = { 'haskell', 'lhaskell', 'cabal' } },
         tinymist = { settings = { formatterMode = "typstyle", exportPdf = "onType", semanticTokens = true } },
         jqls = {},
+        lemminx = { cmd = { "java", "-jar", "/home/kpatel/opt/lemminx/org.eclipse.lemminx/target/org.eclipse.lemminx-uber.jar" } },
+        jdtls = {},
     }
 }
 

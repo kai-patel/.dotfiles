@@ -65,9 +65,11 @@ vim.opt.ttimeoutlen = 50
 vim.keymap.set("n", "<leader>w", ":w !clip.exe<CR>", { silent = true })
 vim.keymap.set("v", "<leader>w", ":'<,'>w !clip.exe<CR>", { silent = true })
 vim.lsp.set_log_level("ERROR")
+vim.opt.textwidth = 80
 
 require("config.lazy")
 require("user.telescope")
 require("user.oil")
 require("user.brackets")
 require("user.lsp")
+require("user.vimwiki")
