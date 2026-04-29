@@ -5,6 +5,7 @@
   "clangd_extensions.nvim": { "branch": "main", "commit": "6fd7f12df71a04dd9ec398fc63aaa23fbe9f525f" },
   "codecompanion-history.nvim": { "branch": "main", "commit": "8c6ca9f998aeef89f3543343070f8562bf911fb4" },
   "codecompanion.nvim": { "branch": "main", "commit": "1db8bdbdbfeb3cf66e9f96db82688684dfa909e7" },
+  "conjure": { "branch": "main", "commit": "f66b3e7f45d325bd556cd785502761e583971920" },
   "copilot.vim": { "branch": "release", "commit": "206011a8bc5078a02560d5c44177e9849e8f8d6c" },
   "darkvoid.nvim": { "branch": "master", "commit": "45be993a5617e05811b6b293c05e6aded7003cc9" },
   "editorconfig-vim": { "branch": "master", "commit": "13b86c5c691785ffbf2d6508c621dabb08e93df0" },
