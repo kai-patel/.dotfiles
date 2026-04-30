@@ -43,16 +43,26 @@ vim.opt.belloff = "esc"
 vim.opt.pumheight = 10
 vim.opt.showmode = true
 vim.opt.laststatus = 2
-vim.opt.statusline = nil
-vim.opt.statusline = vim.opt.statusline + "%1*"
+function DiagnosticErrors()
+    return #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+end
+
+function DiagnosticWarnings()
+    return #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+end
+
+vim.opt.statusline = "%1*"
 vim.opt.statusline = vim.opt.statusline + " %t "
 vim.opt.statusline = vim.opt.statusline + "%2*"
-vim.opt.statusline = vim.opt.statusline + " "
+-- vim.opt.statusline = vim.opt.statusline + " "
 vim.opt.statusline = vim.opt.statusline + "%y"
 vim.opt.statusline = vim.opt.statusline + " [%b, %B]"
 vim.opt.statusline = vim.opt.statusline + " %LL"
 vim.opt.statusline = vim.opt.statusline + " %{FugitiveStatusline()}"
 vim.opt.statusline = vim.opt.statusline + " %m"
+vim.opt.statusline = vim.opt.statusline + "%#DiagnosticError#E:%{v:lua.DiagnosticErrors()}%*/"
+vim.opt.statusline = vim.opt.statusline + "%#DiagnosticWarn#W:%{v:lua.DiagnosticWarnings()}%*"
+vim.opt.statusline = vim.opt.statusline + " %{v:lua.vim.ui.progress_status()}"
 vim.opt.statusline = vim.opt.statusline + "%="
 vim.opt.statusline = vim.opt.statusline + "%3*"
 vim.opt.statusline = vim.opt.statusline + " [%l, %c]"
@@ -73,3 +83,5 @@ require("user.oil")
 require("user.brackets")
 require("user.lsp")
 require("user.vimwiki")
+require("user.treesitter")
+require("user.treesitter")
