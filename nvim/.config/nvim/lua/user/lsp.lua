@@ -77,6 +77,8 @@ local lsp_opts = {
         lemminx = { cmd = { "java", "-jar", "/home/kpatel/opt/lemminx/org.eclipse.lemminx/target/org.eclipse.lemminx-uber.jar" } },
         jdtls = {},
         clojure_lsp = {},
+        hls = {},
+        ocamllsp = {},
     }
 }
 

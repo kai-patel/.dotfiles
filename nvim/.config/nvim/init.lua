@@ -76,6 +76,7 @@ vim.keymap.set("n", "<leader>w", ":w !clip.exe<CR>", { silent = true })
 vim.keymap.set("v", "<leader>w", ":'<,'>w !clip.exe<CR>", { silent = true })
 vim.lsp.log.set_level(vim.log.levels.WARN)
 vim.opt.textwidth = 80
+vim.opt.rtp:append("/home/kpatel/.opam/default/share/ocp-indent/vim")
 
 require("config.lazy")
 require("user.telescope")
