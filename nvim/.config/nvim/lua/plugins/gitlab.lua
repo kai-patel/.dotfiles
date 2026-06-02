@@ -17,5 +17,6 @@ return {
                 vim.g.fugitive_gitlab_token = token;
             end
         end
-    end
+    end,
+    enabled = false
 }

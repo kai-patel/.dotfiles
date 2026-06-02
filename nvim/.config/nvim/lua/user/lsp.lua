@@ -71,13 +71,19 @@ local lsp_opts = {
             shell = "/mnt/c/Users/kpatel/Downloads/PowerShell-7.5.3-win-x64/pwsh.exe",
         },
         dotls = { cmd = { "bunx", "dot-language-server", "--stdio" } },
-        -- hls = { filetypes = { 'haskell', 'lhaskell', 'cabal' } },
         tinymist = { settings = { formatterMode = "typstyle", exportPdf = "onType", semanticTokens = true } },
         jqls = {},
         lemminx = { cmd = { "java", "-jar", "/home/kpatel/opt/lemminx/org.eclipse.lemminx/target/org.eclipse.lemminx-uber.jar" } },
         jdtls = {},
         clojure_lsp = {},
-        hls = {},
+        hls = {
+            filetypes = { 'haskell', 'lhaskell', 'cabal' },
+            settings = {
+                haskell = {
+                    plugin = { importLens = { globalOn = false } }
+                },
+            }
+        },
         ocamllsp = {},
     }
 }
@@ -108,6 +114,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
             vim.lsp.buf.format { async = true, filter = function(client) return client.name ~= "ts_ls" end }
         end, opts)
         vim.keymap.set('n', '<leader>s', ":ClangdSwitchSourceHeader<cr>")
+        vim.lsp.inlay_hint.enable(vim.bo.filetype ~= "cabal" and vim.bo.filetype ~= "haskell")
     end,
 })
-vim.lsp.inlay_hint.enable(true)
